@@ -1,0 +1,4 @@
+*.egg-info
+storage.sqlite
+*.pyc
+**/__pycache__

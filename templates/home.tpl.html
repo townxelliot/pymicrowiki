@@ -1,0 +1,39 @@
+{% extends 'layout.tpl.html' %}
+
+{% block content %}
+  <h1>Pages</h1>
+
+  {% if pages|length == 0 %}
+    <p>No pages to show</p>
+  {% else %}
+    <ul>
+      {% for page in pages %}
+        <li>
+          <a href="{{url_for('mainroutes.page', id=page.id)}}">Show</a> |
+          <form style="display:inline;" method="POST" action="{{url_for('mainroutes.page', id=page.id)}}">
+            <input type="submit" name="action" value="Delete">
+          </form>
+          <br>
+          <pre>{{page.content}}</pre>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <h2>Add a new page</h2>
+
+  <form method="POST" action="/pages/">
+    <textarea name="content" rows="10" cols="100"></textarea>
+    <p><input type="submit" value="Save"></p>
+  </form>
+
+<!--
+  <h1>Files</h1>
+
+  {% if files|length == 0 %}
+    <p>No files to show</p>
+  {% else %}
+    <p>Files to show</p>
+  {% endif %}
+-->
+{% endblock %}
