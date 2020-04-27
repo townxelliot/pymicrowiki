@@ -2,5 +2,9 @@
 
 {% block content %}
   <h1>Page {{id}}</h1>
-  <pre>{{content}}</pre>
+  {% if content.startswith('http') %}
+    {{content|linkerise}}
+  {% else %}
+    <pre>{{content}}</pre>
+  {% endif %}
 {% endblock %}

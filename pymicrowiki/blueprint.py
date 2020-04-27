@@ -20,21 +20,12 @@ from pymicrowiki.models import Page
 mainroutes = Blueprint('mainroutes', __name__)
 
 
-# up to first 100 characters or first newline, whichever comes first
-def _abbrev(string):
-    string = string[0:100]
-    strpos = string.find('\n')
-    if strpos < 100 and strpos > -1:
-        string = string[0:strpos]
-    return string
-
-
 @mainroutes.route('/', methods=['GET'])
 def home():
     pages = get_db().query(Page).order_by(Page.content).all()
 
     ctx = {
-      'pages': list(map(lambda page: {'id': page.id, 'content': _abbrev(page.content)}, pages)),
+      'pages': list(map(lambda page: {'id': page.id, 'content': page.content}, pages)),
       'files': [],
     }
 
