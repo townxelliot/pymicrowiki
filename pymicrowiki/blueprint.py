@@ -12,9 +12,10 @@
 
 # GET /files/:id - show details of a file with download link
 
-from flask import Blueprint, redirect, render_template, request, url_for
+from flask import Blueprint, redirect, render_template, request, send_file, url_for
 
 from pymicrowiki.db import get_db
+from pymicrowiki.file_manager import get_fm
 from pymicrowiki.models import Page
 
 mainroutes = Blueprint('mainroutes', __name__)
@@ -23,10 +24,11 @@ mainroutes = Blueprint('mainroutes', __name__)
 @mainroutes.route('/', methods=['GET'])
 def home():
     pages = get_db().query(Page).order_by(Page.content).all()
+    files = get_fm().list()
 
     ctx = {
       'pages': list(map(lambda page: {'id': page.id, 'content': page.content}, pages)),
-      'files': [],
+      'files': files,
     }
 
     return render_template('home.tpl.html', **ctx)
@@ -53,4 +55,23 @@ def page(id):
 
     if request.method == 'POST' and request.form['action'] == 'Delete':
         get_db().delete(Page, id)
+        return redirect(url_for('mainroutes.home'))
+
+@mainroutes.route('/files/', methods=['POST'])
+def files():
+    # extract file from POST request and add to folder
+    uploaded = request.files['file_name']
+    get_fm().add(uploaded)
+    return redirect(url_for('mainroutes.home'))
+
+@mainroutes.route('/page/<file_name>', methods=['GET', 'POST'])
+def file(file_name):
+    if request.method == 'GET':
+        return send_file(get_fm().get_path(file_name),
+                         mimetype='text/plain',
+                         attachment_filename=file_name,
+                         as_attachment=True)
+
+    if request.method == 'POST' and request.form['action'] == 'Delete':
+        get_fm().delete(file_name)
         return redirect(url_for('mainroutes.home'))

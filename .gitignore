@@ -1,4 +1,5 @@
 *.egg-info
-storage.sqlite
+**/storage.sqlite
 *.pyc
 **/__pycache__
+/STORAGE

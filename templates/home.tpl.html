@@ -14,7 +14,7 @@
             <input type="submit" name="action" value="Delete">
           </form>
           <br>
-          {{page.content|linkerise_or_abbreviate}}
+          {{page.content|linkerise_or_show}}
         </li>
       {% endfor %}
     </ul>
@@ -27,13 +27,28 @@
     <p><input type="submit" value="Save"></p>
   </form>
 
-<!--
+  <hr>
+
   <h1>Files</h1>
 
   {% if files|length == 0 %}
     <p>No files to show</p>
   {% else %}
-    <p>Files to show</p>
+    <ul>
+      {% for file in files %}
+        <li>
+          {{file}}&nbsp;&nbsp;&nbsp;<a href="{{url_for('mainroutes.file', file_name=file)}}">Download</a> |
+          <form style="display:inline;" method="POST" action="{{url_for('mainroutes.file', file_name=file)}}">
+            <input type="submit" name="action" value="Delete">
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
   {% endif %}
--->
+
+  <h2>Upload a file</h2>
+
+  <form method="POST" action="/files/" enctype="multipart/form-data">
+    <p><input type="file" name="file_name"> <input type="submit" value="Upload"></p>
+  </form>
 {% endblock %}

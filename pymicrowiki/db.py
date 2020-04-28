@@ -30,5 +30,5 @@ class Db:
 
 def get_db():
     if 'db' not in g:
-        g.db = Db(config.sqlite_uri)
+        g.db = Db(config['sqlite_uri'])
     return g.db

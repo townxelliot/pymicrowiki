@@ -1,9 +1,13 @@
 # file location of the sqlite db
-from os import path
+import os
 
-class Config:
+_base_path = os.path.join(os.path.dirname(__file__), '..', 'STORAGE')
+os.makedirs(_base_path, exist_ok=True)
 
-    def __init__(self):
-        self.sqlite_uri = 'sqlite:///' + path.abspath(path.join(path.dirname(__file__), '..', 'storage.sqlite'))
+def _build_path(path_segment):
+    return os.path.abspath(os.path.join(_base_path, path_segment))
 
-config = Config()
+config = {
+    'sqlite_uri': 'sqlite:///' + _build_path('db.sqlite'),
+    'file_folder': _build_path('files'),
+}

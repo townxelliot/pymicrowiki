@@ -34,7 +34,7 @@ def run_migrations_offline():
 
     """
     context.configure(
-        url=appConfig.sqlite_uri,
+        url=appConfig['sqlite_uri'],
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
@@ -51,7 +51,7 @@ def run_migrations_online():
     and associate a connection with the context.
 
     """
-    connectable = create_engine(appConfig.sqlite_uri)
+    connectable = create_engine(appConfig['sqlite_uri'])
 
     with connectable.connect() as connection:
         context.configure(
