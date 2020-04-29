@@ -1,16 +1,12 @@
-# GET / - list all pages and files as links to /pages/:id and /files/:id respectively
-
-# GET /pages/ - list all pages; show form to create a new page
-
-# GET /files/ - list all files; show form to enable uploading a new file
+# GET / - list all pages and files as links to /pages/:id and /files/:file_name respectively
 
 # POST /pages/ - create a page with a new ID
 
 # POST /files/ (with file upload in body) - create a new file on the server
 
-# GET /pages/:id - show a page in editor
+# GET /pages/:id - show a page
 
-# GET /files/:id - show details of a file with download link
+# GET /files/:file_name - download a file
 
 from flask import Blueprint, redirect, render_template, request, send_file, url_for
 
@@ -64,7 +60,7 @@ def files():
     get_fm().add(uploaded)
     return redirect(url_for('mainroutes.home'))
 
-@mainroutes.route('/page/<file_name>', methods=['GET', 'POST'])
+@mainroutes.route('/files/<file_name>', methods=['GET', 'POST'])
 def file(file_name):
     if request.method == 'GET':
         return send_file(get_fm().get_path(file_name),
