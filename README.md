@@ -8,7 +8,7 @@ For transferring files and notes between machines on the same network.
 
 ```
 virtualenv -p python3 ~/.pymicrowiki
-source ~/.pymicrowikie/bin/activate
+source ~/.pymicrowiki/bin/activate
 pip install -r requirements.txt
 python app.py
 ```
