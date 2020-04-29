@@ -2,7 +2,16 @@ A simple note-taking and file-saving app to run on your local machine.
 
 For transferring files and notes between machines on the same network.
 
-**Not suitable for production use.**
+**Not suitable for production use. DO NOT EXPOSE TO THE INTERNET. PLEASE.**
+
+# Run it
+
+```
+virtualenv -p python3 ~/.pymicrowiki
+source ~/.pymicrowikie/bin/activate
+pip install -r requirements.txt
+python app.py
+```
 
 # Creating db models and migrations
 
