@@ -28,9 +28,11 @@ setup(
     python_requires='>=3.6, <4',
     install_requires=[
         'Flask',
+        'SQLAlchemy',
     ],
     extras_require={
         'dev': [
+            'alembic',
         ],
     }
 )
