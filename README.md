@@ -9,9 +9,14 @@ For transferring files and notes between machines on the same network.
 ```
 virtualenv -p python3 ~/.pymicrowiki
 source ~/.pymicrowiki/bin/activate
-pip install -r requirements.txt
+pip install -e.[dev]
+alembic upgrade head
 python app.py
 ```
+
+Then visit `http://localhost:5005/` in your browser. On your own network,
+visit `http://<ip address>:5005/` to access it remotely from another
+machine.
 
 # Creating db models and migrations
 
