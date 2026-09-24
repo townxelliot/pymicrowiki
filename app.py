@@ -1,8 +1,5 @@
 """
-data model:
-
-Page
-* content
+data model: Page
 """
 
 from os import path
